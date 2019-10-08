@@ -8,6 +8,7 @@ import (
 
 func Health() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://testinglocal")
 		if r.Method == http.MethodGet {
 			w.WriteHeader(http.StatusOK)
 			data := views.Response{
