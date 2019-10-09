@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-	"testapi/controllers"
-	"testapi/models"
+	"github.com/lkhadi/MVC_golang-practice/controllers"
+	"github.com/lkhadi/MVC_golang-practice/models"
 	_ "github.com/go-sql-driver/mysql"
 )
 

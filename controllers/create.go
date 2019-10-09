@@ -3,8 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
-	"testapi/models"
-	"testapi/views"
+	"github.com/lkhadi/MVC_golang-practice/models"
+	"github.com/lkhadi/MVC_golang-practice/views"
 )
 
 func Create() http.HandlerFunc {

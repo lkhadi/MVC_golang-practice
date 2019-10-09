@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
-	"testapi/views"
+	"github.com/lkhadi/MVC_golang-practice/views"
 )
 
 func Health() http.HandlerFunc {
