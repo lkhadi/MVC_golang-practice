@@ -3,6 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/lkhadi/MVC_golang-practice/models"
 	"github.com/lkhadi/MVC_golang-practice/views"
 )
 
@@ -11,7 +13,10 @@ func Read() http.HandlerFunc {
 		if r.Method == http.MethodGet {
 			w.Header().Set("Access-Control-Allow-Origin", "http://testinglocal")
 			w.WriteHeader(http.StatusOK)
-			arr := [][]string{{"1", "Lalu"}, {"2", "Kismara"}, {"3", "Hadi"}}
+			arr, err := models.ReadAll()
+			if err != nil {
+				w.Write([]byte("Cannot read data"))
+			}
 			data := views.Response{
 				Code: 200,
 				Body: arr,
