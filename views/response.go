@@ -5,9 +5,17 @@ type Response struct {
 	Body interface{} "json:body"
 }
 
-type Artikel struct {
+type SetArtikel struct {
 	Judul   string "json:judul"
 	Artikel string "json:artikel"
 	Author  string "json:author"
 	Tanggal string "json:tanggal"
+}
+
+type GetArtikel struct {
+	IdArtikel int    "json:id_artikel"
+	Judul     string "json:judul"
+	Artikel   string "json:artikel"
+	Author    string "json:author"
+	Tanggal   string "json:tanggal"
 }

@@ -12,9 +12,9 @@ func Create() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "http://testinglocal")
 		if r.Method == http.MethodPost {
-			data := views.Artikel{}
+			data := views.SetArtikel{}
 			json.NewDecoder(r.Body).Decode(&data)
-			if err := models.Artikel(data.Artikel, data.Judul, data.Author, data.Tanggal); err != nil {
+			if err := models.Artikel(data); err != nil {
 				w.Write([]byte("Cannot insert data"))
 				return
 			}
