@@ -26,7 +26,6 @@ func Delete() http.HandlerFunc {
 			}
 			json.NewEncoder(w).Encode(data)
 		} else {
-			w.WriteHeader(http.StatusBadRequest)
 			data := views.Response{
 				Code: 500,
 				Body: "Something Wrong",

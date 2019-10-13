@@ -9,5 +9,6 @@ func Route() *http.ServeMux {
 	mux.HandleFunc("/create", Create())
 	mux.HandleFunc("/read/artikel/", ReadOne())
 	mux.HandleFunc("/delete/", Delete())
+	mux.HandleFunc("/update", Update())
 	return mux
 }

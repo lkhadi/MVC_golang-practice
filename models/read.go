@@ -11,7 +11,7 @@ func ReadAll() ([]views.GetArtikel, error) {
 	}
 	for rows.Next() {
 		data := views.GetArtikel{}
-		rows.Scan(&data.IdArtikel, &data.Judul, &data.Artikel, &data.Author, &data.Tanggal)
+		rows.Scan(&data.IDArtikel, &data.Judul, &data.Artikel, &data.Author, &data.Tanggal)
 		artikel = append(artikel, data)
 	}
 	return artikel, nil
@@ -27,7 +27,7 @@ func ReadOne(id string) ([]views.GetArtikel, error) {
 
 	for row.Next() {
 		data := views.GetArtikel{}
-		row.Scan(&data.IdArtikel, &data.Judul, &data.Artikel, &data.Author, &data.Tanggal)
+		row.Scan(&data.IDArtikel, &data.Judul, &data.Artikel, &data.Author, &data.Tanggal)
 		artikel = append(artikel, data)
 	}
 	return artikel, nil
