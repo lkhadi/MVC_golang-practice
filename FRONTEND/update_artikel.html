@@ -2,16 +2,16 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Index Go API</title>
+	<title>Read Artikel</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-light">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="http://testinglocal">Home</a>
+				<a class="nav-link active" href="http://testinglocal">Home</a>
 			</li>
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="http://testinglocal/create.html">Create</a>
 			</li>
 		</ul>
@@ -19,6 +19,7 @@
 	<div class="container">
 		<div id="alert"></div>
 		<form>
+			<input type="hidden" name="idartikel" required="">
 			<div class="form-group">
 				<label>Judul</label>
 				<input type="text" name="judul" class="form-control" required="">
@@ -35,12 +36,36 @@
 				<label>Tanggal</label>
 				<input type="date" name="tanggal" required="">
 			</div>
-			<button type="submit" class="btn btn-primary">Simpan</button>
+			<button type="submit" class="btn btn-primary">Update</button>
 		</form>
 	</div>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+		if(urlParam('id_artikel') !== null){
+			var id_artikel = urlParam('id_artikel');
+			$.ajax({
+				url: "http://localhost:3000/read/artikel/",
+				type: "GET",
+				dataType: "json",
+				data: {id: id_artikel},
+				success: function(response){
+					$("input[name=idartikel]").val(id_artikel);
+					$("input[name=judul]").val(response.Body[0]["Judul"]);
+					$("input[name=tanggal]").val(response.Body[0]["Tanggal"]);
+					$("textarea[name=artikel]").val(response.Body[0]["Artikel"]);
+				}
+			});
+		}
+		function urlParam(name){
+		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null){
+		       return null;
+		    }
+		    else{
+		       return results[1] || 0;
+		    }
+		}
 		$("form").submit(function(e){
 			e.preventDefault();
 			var form = $(this).serializeArray();
@@ -50,17 +75,16 @@
 			});
 			data = JSON.stringify(data);
 			$.ajax({
-				url: "http://localhost:3000/create",
-				type: "POST",
-				dataType: "json",
+				url: "http://localhost:3000/update",
+				type: "PUT",
 				data: data,
+				dataType: "json",
 				success: function(response){
-					if(response.Code==201){
-						$("#alert").html("<div class='alert alert-success'><strong>Berhasil!</strong> Data telah ditambahkan</div>");
+					if(response.Code==200){
+						$("#alert").html("<div class='alert alert-success'><strong>Berhasil!</strong> Data telah diupdate</div>");
 					}else{
 						$("#alert").html("<div class='alert alert-danger'><strong>Gagal!</strong> Data gagal ditambahkan</div>");
 					}
-					
 				}
 			});
 		});

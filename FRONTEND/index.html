@@ -14,9 +14,6 @@
 			<li class="nav-item">
 				<a class="nav-link" href="http://testinglocal/create.html">Create</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Update</a>
-			</li>
 		</ul>
 	</nav>
 	<table class="table table-sm table-hover table-striped">
@@ -27,6 +24,7 @@
 				<th>Artikel</th>
 				<th>Author</th>
 				<th>Tanggal</th>
+				<th>Aksi</th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -42,10 +40,20 @@
 				var html = "";
 				$.each(response.Body,function(key,value){
 					key = parseInt(key)+1;
-					html=html+"<tr><td>"+key+"</td><td>"+value["Judul"]+"</td><td>"+value["Artikel"]+"</td><td>"+value["Author"]+"</td><td>"+value["Tanggal"]+"</td></tr>";
+					html=html+"<tr><td>"+key+"</td><td>"+value["Judul"]+"</td><td>"+value["Artikel"]+"</td><td>"+value["Author"]+"</td><td>"+value["Tanggal"]+"</td><td><a class='btn btn-sm btn-primary' href='http://testinglocal/read_artikel.html?id_artikel="+value["IDArtikel"]+"'>Lihat</a><a class='btn btn-sm btn-info' href='http://testinglocal/update_artikel.html?id_artikel="+value["IDArtikel"]+"'>Update</a><button class='btn btn-sm btn-danger hapus' value='"+value["IDArtikel"]+"'>Hapus</button></td></tr>";
 				});
 				$("tbody").html(html);
 			}
+		});
+		$(document).on("click",".hapus",function(){
+			var value = $(this).val();
+			$.ajax({
+				url: "http://localhost:3000/delete/"+value,
+				type: "DELETE",
+				success: function(response){
+					window.location.href="http://testinglocal";
+				}
+			});
 		});
 	</script>
 </body>

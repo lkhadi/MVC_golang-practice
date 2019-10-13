@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Read Artikel</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm bg-light">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link active" href="http://testinglocal">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="http://testinglocal/create.html">Create</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Update</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="container">
+		<h5 class="text-center" id="judul"></h5>
+		<span id="ket"></span>
+		<article>
+			<p id="artikel"></p>
+		</article>
+	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		if(urlParam('id_artikel') !== null){
+			var id_artikel = urlParam('id_artikel');
+			$.ajax({
+				url: "http://localhost:3000/read/artikel/",
+				type: "GET",
+				dataType: "json",
+				data: {id: id_artikel},
+				success: function(response){
+					$("#judul").text(response.Body[0]["Judul"]);
+					$("#ket").text("Author : "+response.Body[0]["Author"]+" / Tanggal: "+response.Body[0]["Tanggal"]);
+					$("#artikel").text(response.Body[0]["Artikel"]);
+				}
+			});
+		}
+		function urlParam(name){
+		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null){
+		       return null;
+		    }
+		    else{
+		       return results[1] || 0;
+		    }
+		}
+		
+	</script>
+</body>
+</html>
